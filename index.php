@@ -1,8 +1,8 @@
 <?php
 
-$region = "eu-central-1";
-$key = "AKIAJU4DSS6KS4I6L3JQ";
-$secret = "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";
+$region = "<region>";
+$key = "<key>";
+$secret = "<secret>";
 putenv('AWS_DEFAULT_REGION=' . $region);
 putenv('AWS_ACCESS_KEY_ID=' . $key);
 putenv('AWS_SECRET_ACCESS_KEY=' . $secret);
@@ -11,10 +11,10 @@ $GLOBALS['salida'] = shell_exec("/usr/bin/aws ec2 describe-instances --instance-
 $GLOBALS['subject'] =  htmlspecialchars($_POST['subject']);
 
   if ($GLOBALS['subject'] == 'start') {
-     shell_exec("/usr/bin/aws ec2 start-instances --instance-ids i-07841f41780b1cbff --output text | grep -w CURRENTSTATE | awk '{print $3}'");
+     shell_exec("/usr/bin/aws ec2 start-instances --instance-ids <instance-id> --output text | grep -w CURRENTSTATE | awk '{print $3}'");
       //action for update here
   } else if ($GLOBALS['subject'] == 'stop') {
-       shell_exec("/usr/bin/aws ec2 stop-instances --instance-ids i-07841f41780b1cbff --output text | grep -w CURRENTSTATE | awk '{print $3}'");    
+       shell_exec("/usr/bin/aws ec2 stop-instances --instance-ids <instance-id> --output text | grep -w CURRENTSTATE | awk '{print $3}'");    
   } else {
     // None
   }
@@ -57,7 +57,7 @@ $GLOBALS['subject'] =  htmlspecialchars($_POST['subject']);
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td>i-07841f41780b1cbff</td>
+      <td>instance-id</td>
       <td><span class="badge badge-warning"><?php echo $GLOBALS['salida']; ?></spam></td>
       <td><button type="submit" class="btn btn-primary" name="subject" value="start">Start</button></td>
       <td><button type="submit" class="btn btn-primary" name="subject" value="stop">Stop</button></td>
